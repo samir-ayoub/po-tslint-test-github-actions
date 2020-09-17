@@ -19,7 +19,7 @@ jobs:
       uses: martinbeentjes/npm-get-version-action@master
       
     - name: Run publish
-      run: npm publish --access public
+      run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
  
