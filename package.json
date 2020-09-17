@@ -1,6 +1,6 @@
 {
   "name": "@123samir/gonna-build-a-mountain-po-ts-lint",
-  "version": "9.0.0-rc.0",
+  "version": "9.0.0-next.1",
   "tag": "next",
   "description": "PO Lint for TSLint",
   "author": "PO",
