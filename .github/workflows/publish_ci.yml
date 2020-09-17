@@ -1,0 +1,31 @@
+name: Publish @po-ui/ng-tslint
+on:
+  workflow_dispatch:
+  
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+        registry-url: 'https://registry.npmjs.org'
+        
+    - run: npm install
+    - run: npm run build
+      
+    - name: Get package.json version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
+      
+    - name: Run publish
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+ 
+    - name: Add "latest" tag
+      if: (!contains(steps.package-version.outputs.current-version, '-next') && !contains(steps.package-version.outputs.current-version, '-rc'))
+      run: npm dist-tags add @123samir/gonna-build-a-mountain-po-tslint@${{ steps.package-version.outputs.current-version }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
